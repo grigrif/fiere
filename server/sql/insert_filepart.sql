@@ -1,0 +1,1 @@
+INSERT INTO FilePart (file_id, file_size, hash, identifier, offset) VALUES ((SELECT file_id FROm File WHERE secret_key == ? AND submitted == 0), ?, ?, ?, ? )

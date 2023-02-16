@@ -1,0 +1,1 @@
+SELECT offset, FilePart.hash, FilePart.file_size  FROM File  LEFT JOIN FilePart ON File.file_id = FilePart.file_id WHERE File.secret_key == ? and not submitted and FilePart.hash is NOt NULL

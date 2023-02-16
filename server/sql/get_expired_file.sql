@@ -1,0 +1,1 @@
+DELETE  From File WHERE expired_at < ?  RETURNING file_id

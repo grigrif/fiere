@@ -1,0 +1,1 @@
+UPDATE File  SET download = download + 1 WHERE identifier = ? and download < max_download  ReTURNING file_size, expired_at, name

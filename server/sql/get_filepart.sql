@@ -1,0 +1,1 @@
+SELECT file_size, identifier, hash, offset from FilePart WHERE file_id == (SELECT file_id from File WHERE identifier == ?) ORDER By offset

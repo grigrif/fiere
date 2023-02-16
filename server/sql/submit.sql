@@ -1,0 +1,1 @@
+UPDATE  File SET submitted = 1,  max_download = ?, expired_at= ?, name=?, file_size = (SELECT sum(file_size) from FilePart WHERE FilePart.file_id == File.file_id)  WHERE secret_key = ? AND NOT submitted RETURNING identifier, expired_at
