@@ -1,0 +1,21 @@
+{
+  "secrets": {
+    "a91e8f49": "f230c712-3952-452f-ab32-89265fef46f8",
+    "f11debf4": "d04b1a24-f022-42ff-9979-447e4b74f76d"
+  },
+  "uploads": {
+    "test.txt": {
+      "secret_key": "d04b1a24-f022-42ff-9979-447e4b74f76d",
+      "path": "test.txt",
+      "file_offset": 100000000,
+      "curr_offset": 25
+    },
+    "the__IndustrialRevolution__incident.mp4": {
+      "secret_key": "f230c712-3952-452f-ab32-89265fef46f8",
+      "path": "the__IndustrialRevolution__incident.mp4",
+      "file_offset": 31542353,
+      "curr_offset": 8
+    }
+  },
+  "downloads": {}
+}

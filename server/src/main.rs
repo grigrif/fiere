@@ -26,7 +26,7 @@ async fn periodic_delete(db: &Pool<Sqlite>) {
         let identifier: String = i.identifier.unwrap();
         let info = fs::remove_file(format!("./data/{}", identifier));
         if info.is_err() {
-            print!("{:?}", info.err().unwrap());
+            println!("[PERIODIC DELETE] {:?}", info.err().unwrap());
         }
     }
 
@@ -42,7 +42,8 @@ async fn prepare_file( db: web::Data<Pool<Sqlite>>) -> impl Responder {
    let result = sqlx::query(include_str!("../sql/prepare.sql")).
        bind(&time_span.to_string()).bind(&secret_key).bind(identifier).execute(db.get_ref()).await;
     if result.is_err() {
-        print!("{:?}", result.err().unwrap());
+
+        println!("[prepare file] {:?}", result.err().unwrap());
         return HttpResponse::InternalServerError().finish();
     }
     return HttpResponse::Ok().json(json!({
@@ -70,7 +71,7 @@ async fn get_file(path: web::Path<(String)>, db: web::Data<Pool<Sqlite>>, ) -> R
     let parts = parts.await.map_err(|e| error::ErrorNotFound("e"))?;
 
 return  Ok(HttpResponse::Ok().json(json!({
-    "file": response,
+    "file": response[0],
     "parts":parts
 })))
 }
@@ -106,7 +107,7 @@ async fn delete(path: web::Path<String>, db: web::Data<Pool<Sqlite>>)-> Result<H
         let identifier: String = i.identifier.unwrap();
         let info = fs::remove_file(format!("./data/{}", identifier));
         if info.is_err() {
-            print!("{:?}", info.err().unwrap());
+            println!("[DELETE] {:?}", info.err().unwrap());
         }
     }
     let results = sqlx::query!("DELETE FROM File WHERE secret_key = ? RETURNING file_id", secret_key).fetch_all(db.get_ref()) // -> Vec<{ country: String, count: i64 }>
@@ -173,7 +174,7 @@ async fn part_file(mut payload: Multipart, db: web::Data<Pool<Sqlite>>) -> Resul
             .bind(offset.unwrap().to_string()).execute(db.get_ref()).await;
 
         if result.is_err() {
-            print!("{:?}", result.err().unwrap());
+            println!("[MULTIPART] {:?}", result.err().unwrap());
             return Ok(HttpResponse::InternalServerError().finish());
         }
         let mut file_ = File::create(format!("data/{}", identifier))?;
